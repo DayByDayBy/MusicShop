@@ -1,5 +1,6 @@
 import StockItems.StockItem;
 import StockItems.instruments.*;
+import StockItems.peripherals.Plectrum;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,15 +9,18 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class TestStockItem {
+public class TestShop {
 
+    ArrayList<StockItem> stock;
     Piano steinway;
     Marimba majestic;
     ElectricGuitar fender;
-
     Cello stradivarius;
     Shop noiseMeUp;
-    ArrayList<StockItem> stock;
+    Plectrum jimDunlop;
+    Plectrum ernieBall;
+
+
 
 
     @Before
@@ -27,6 +31,8 @@ public class TestStockItem {
         steinway = new Piano(3000, 4000, true, InstrumentType.PIANO, "plink, chank-chank plink plunk");
         fender = new ElectricGuitar(1200, 1900, false, InstrumentType.GUITAR, "dang-ga dank");
         stradivarius = new Cello(2000000,2100000, true, InstrumentType.CELLO, "zumm... zasingzaaaaaazum");
+        jimDunlop = new Plectrum(0.20, 1.10);
+        ernieBall = new Plectrum(0.30, 1.40);
         noiseMeUp = new Shop("noise me up", 300000, stock);
 
 
@@ -34,28 +40,35 @@ public class TestStockItem {
 
     @Test
     public void canAddToStock(){
-        noiseMeUp.addToStock(steinway, stock);
         noiseMeUp.addToStock(fender, stock);
         noiseMeUp.addToStock(majestic, stock);
-        noiseMeUp.addToStock(stradivarius, stock);
-        assertEquals(4, stock.size());
-        assertEquals(-1712400, noiseMeUp.getCash(),0.0);
+        assertEquals(2, stock.size());
+        assertEquals(290600, noiseMeUp.getCash(), 0.0);
     }
 
+
     @Test
-    public void canMakeNoise(){
-        assertEquals("plink, chank-chank plink plunk", steinway.sound());
+    public void canCalculateMarkup(){
+        assertEquals(100000, stradivarius.calculateMarkup(stradivarius.getCost(), stradivarius.getPrice()), 0.0);
     }
+
 
     @Test
     public void isItOrchestral(){
         assertTrue(stradivarius.isOrchestral());
     }
 
+
     @Test
-    public void canCalculateMarkup(){
-        assertEquals(100000, stradivarius.calculateMarkup(stradivarius.getCost(), stradivarius.getPrice()), 0.0);
+    public void canSellItems(){
+        noiseMeUp.sellToCustomer(fender);
+        noiseMeUp.sellToCustomer(jimDunlop);
+        noiseMeUp.sellToCustomer(ernieBall);
+        assertEquals(301902.50, noiseMeUp.cash, 0.0);
     }
+
+
+
 
 
 }

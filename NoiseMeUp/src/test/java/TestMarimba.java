@@ -12,7 +12,6 @@ import static org.junit.Assert.assertEquals;
 public class TestMarimba {
 
     Marimba majestic;
-    Shop noiseMeUp;
     ArrayList<StockItem> stock;
 
 
@@ -21,16 +20,6 @@ public class TestMarimba {
     public void setup () {
         stock = new ArrayList<>();
         majestic = new Marimba(8200, 9000, true, InstrumentType.MARIMBA, "bi-bing bing ba-bing");
-        noiseMeUp = new Shop("noise me up", 300000, stock);
-
-
-    }
-
-    @Test
-    public void canAddToStock(){
-        noiseMeUp.addToStock(majestic, stock);
-        assertEquals(1, stock.size());
-
     }
 
     @Test

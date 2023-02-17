@@ -13,7 +13,6 @@ import static org.junit.Assert.assertEquals;
 public class TestPiano {
 
     Piano steinway;
-    Shop noiseMeUp;
     ArrayList<StockItem> stock;
 
 
@@ -22,16 +21,10 @@ public class TestPiano {
     public void setup () {
         stock = new ArrayList<>();
         steinway = new Piano(3000, 4000, true, InstrumentType.PIANO, "plink, chank-chank plink plunk");
-        noiseMeUp = new Shop("noise me up", 300000, stock);
 
 
     }
 
-    @Test
-    public void canAddToStock(){
-        noiseMeUp.addToStock(steinway, stock);
-        assertEquals(1, stock.size());
-    }
 
     @Test
     public void canMakeNoise(){

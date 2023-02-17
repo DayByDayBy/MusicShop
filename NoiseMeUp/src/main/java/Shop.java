@@ -43,8 +43,14 @@ public class Shop implements ISell {
         return stockItem;
     }
 
+    public void sellToCustomer(StockItem item){
+        cash += item.getPrice();
+
+    }
+
     public void addToStock(StockItem stockItem, ArrayList<StockItem> stock) {
         stock.add(stockItem);
+        cash -= stockItem.getCost();
     }
 
     @Override

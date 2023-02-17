@@ -1,4 +1,9 @@
 package StockItems.peripherals;
 
-public class Plectrum {
+import StockItems.StockItem;
+
+public class Plectrum extends Peripheral {
+    public Plectrum(double cost, double price) {
+        super(cost, price);
+    }
 }
