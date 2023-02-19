@@ -17,6 +17,7 @@ public class TestStockItem {
     Cello stradivarius;
     Shop noiseMeUp;
     ArrayList<StockItem> stock;
+    double totalProfit;
 
 
     @Before
@@ -27,7 +28,7 @@ public class TestStockItem {
         steinway = new Piano(3000, 4000, true, InstrumentType.PIANO, "plink, chank-chank plink plunk");
         fender = new ElectricGuitar(1200, 1900, false, InstrumentType.GUITAR, "dang-ga dank");
         stradivarius = new Cello(2000000,2100000, true, InstrumentType.CELLO, "zumm... zasingzaaaaaazum");
-        noiseMeUp = new Shop("noise me up", 300000, stock);
+        noiseMeUp = new Shop("noise me up", 300000, stock, totalProfit);
 
 
     }
@@ -54,7 +55,7 @@ public class TestStockItem {
 
     @Test
     public void canCalculateMarkup(){
-        assertEquals(100000, stradivarius.calculateMarkup(stradivarius.getCost(), stradivarius.getPrice()), 0.0);
+        assertEquals(100000, stradivarius.calculateMarkup(), 0.0);
     }
 
 

@@ -19,7 +19,8 @@ public class StockItem implements ISell {
     public double getPrice() {
         return price;
     }
-    public double calculateMarkup(double cost, double price){
+
+    public double calculateMarkup(){
         return getPrice() - getCost();
     }
 }

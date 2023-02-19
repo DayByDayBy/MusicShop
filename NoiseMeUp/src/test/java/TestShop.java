@@ -12,6 +12,7 @@ import static org.junit.Assert.assertTrue;
 public class TestShop {
 
     ArrayList<StockItem> stock;
+    double totalProfit;
     Piano steinway;
     Marimba majestic;
     ElectricGuitar fender;
@@ -26,6 +27,7 @@ public class TestShop {
     @Before
 
     public void setup () {
+        totalProfit = 0;
         stock = new ArrayList<>();
         majestic = new Marimba(8200, 9000, true, InstrumentType.MARIMBA, "bi-bing bing ba-bing");
         steinway = new Piano(3000, 4000, true, InstrumentType.PIANO, "plink, chank-chank plink plunk");
@@ -33,7 +35,7 @@ public class TestShop {
         stradivarius = new Cello(2000000,2100000, true, InstrumentType.CELLO, "zumm... zasingzaaaaaazum");
         jimDunlop = new Plectrum(0.20, 1.10);
         ernieBall = new Plectrum(0.30, 1.40);
-        noiseMeUp = new Shop("noise me up", 300000, stock);
+        noiseMeUp = new Shop("noise me up", 300000, stock, totalProfit);
 
 
     }
@@ -49,7 +51,7 @@ public class TestShop {
 
     @Test
     public void canCalculateMarkup(){
-        assertEquals(100000, stradivarius.calculateMarkup(stradivarius.getCost(), stradivarius.getPrice()), 0.0);
+        assertEquals(100000, stradivarius.calculateMarkup(), 0.0);
     }
 
 
@@ -61,11 +63,35 @@ public class TestShop {
 
     @Test
     public void canSellItems(){
+        noiseMeUp.addToStock(fender, stock);
+        noiseMeUp.addToStock(steinway, stock);
+        noiseMeUp.addToStock(jimDunlop, stock);
+        noiseMeUp.addToStock(ernieBall, stock);
         noiseMeUp.sellToCustomer(fender);
         noiseMeUp.sellToCustomer(jimDunlop);
         noiseMeUp.sellToCustomer(ernieBall);
-        assertEquals(301902.50, noiseMeUp.cash, 0.0);
+        assertEquals(297702, noiseMeUp.cash, 0.0);
+        assertEquals(1, stock.size());
     }
+
+    @Test
+    public void canCalculateTotalStockMarkup(){
+        noiseMeUp.addToStock(fender, stock);
+        noiseMeUp.addToStock(steinway, stock);
+        noiseMeUp.addToStock(jimDunlop, stock);
+        noiseMeUp.addToStock(jimDunlop, stock);
+        noiseMeUp.addToStock(jimDunlop, stock);
+        noiseMeUp.addToStock(ernieBall, stock);
+        noiseMeUp.addToStock(ernieBall, stock);
+        noiseMeUp.addToStock(ernieBall, stock);
+        noiseMeUp.addToStock(stradivarius, stock);
+        noiseMeUp.addToStock(majestic, stock);
+        assertEquals(102506, noiseMeUp.calculateTotalMarkup(stock), 0.0);
+
+
+    }
+
+
 
 
 

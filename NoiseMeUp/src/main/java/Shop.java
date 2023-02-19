@@ -3,24 +3,22 @@ import behaviours.ISell;
 import java.util.ArrayList;
 
 public class Shop implements ISell {
+    public double totalProfit;
     String name;
     double cash;
     ArrayList<StockItem> stock;
     StockItem stockItem;
 
-    public Shop(String name, double cash, ArrayList<StockItem> stock) {
+    public Shop(String name, double cash, ArrayList<StockItem> stock, double totalProfit) {
         this.name = name;
         this.cash = cash;
         this.stock = stock;
+        this.totalProfit = totalProfit;
     }
 
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public double getCash() {
@@ -43,20 +41,26 @@ public class Shop implements ISell {
         return stockItem;
     }
 
-    public void sellToCustomer(StockItem item){
-        cash += item.getPrice();
-
-    }
-
     public void addToStock(StockItem stockItem, ArrayList<StockItem> stock) {
         stock.add(stockItem);
-        cash -= stockItem.getCost();
+        setCash(cash -= stockItem.getCost());
     }
 
-    @Override
-    public double calculateMarkup(double cost, double price) {
+    public void sellToCustomer(StockItem stockItem){
+        setCash(cash += stockItem.getPrice());
+        stock.remove(stockItem);
+    }
+
+    public double calculateMarkup() {
             return (stockItem.getPrice()/stockItem.getCost())*100;
         }
+    public double calculateTotalMarkup(ArrayList<StockItem> stock){
+        for (ISell item : stock ) {
+            totalProfit += item.calculateMarkup();
 
+
+
+        }return totalProfit;
+    }
 
 }
