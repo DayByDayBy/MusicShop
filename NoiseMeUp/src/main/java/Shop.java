@@ -59,8 +59,20 @@ public class Shop implements ISell {
             totalProfit += item.calculateMarkup();
 
 
-
         }return totalProfit;
+
+
+
+
+
+//        another way, using a stream:
+//
+//
+//        return stock.stream()
+//                .map(ISell::calculateMarkup)
+//                .reduce(0, Integer::sum);
+
+
     }
 
 }

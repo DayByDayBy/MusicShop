@@ -2,7 +2,7 @@ package StockItems;
 
 import behaviours.ISell;
 
-public class StockItem implements ISell {
+public abstract class StockItem implements ISell {
 
     double cost;
     double price;
